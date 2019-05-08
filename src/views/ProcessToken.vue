@@ -13,7 +13,7 @@ export default {
     const { token } = this.$route.query;
     if ((typeof token !== 'undefined') && token.length) {
       this.$store.commit('setApiToken', token);
-      this.$router.push({ name: 'home' });
+      window.location.href = '/';
     }
     loading.close();
   },
