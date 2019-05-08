@@ -22,7 +22,7 @@ export default {
       const authLink = new URL('authorize', 'https://api.trello.com/1/');
       authLink.searchParams.append('key', this.trelloApiKey);
       authLink.searchParams.append('callback_method', 'fragment');
-      authLink.searchParams.append('return_url', `${window.location.origin}/#/rToken?auth`);
+      authLink.searchParams.append('return_url', `${window.location.origin}${window.location.pathname}#/rToken?auth`);
       authLink.searchParams.append('scope', 'read,write');
       authLink.searchParams.append('expiration', '30days');
       authLink.searchParams.append('name', 'Due Date Pusher');
