@@ -1,23 +1,39 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import Home from './views/Home.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const r = new Router({
   routes: [
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: () => import(/* webpackChunkName: "home" */ './views/Home.vue'),
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
+    },
+    {
+      path: '/rToken',
+      name: 'rToken',
+      component: () => import(/* webpackChunkName: "rToken" */ './views/ProcessToken.vue'),
     },
   ],
 });
+
+r.beforeEach((to, from, next) => {
+  const apikey = localStorage.getItem('trello-api-token');
+  if ((to.name !== 'login') && (to.name !== 'rToken')) {
+    if (apikey === null) next({ name: 'login', query: { error: 'apiTokenLost' }, replace: true });
+  }
+
+  if ((to.name === 'login') && apikey) {
+    next({ name: 'home', replace: true });
+  }
+
+  next();
+});
+
+export default r;
