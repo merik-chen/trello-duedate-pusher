@@ -1,6 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
+import Home from './views/Home.vue';
+import Login from './views/Login.vue';
+import ProcessToken from './views/ProcessToken.vue';
+
 Vue.use(Router);
 
 const r = new Router({
@@ -8,17 +12,17 @@ const r = new Router({
     {
       path: '/',
       name: 'home',
-      component: () => import(/* webpackChunkName: "home" */ './views/Home.vue'),
+      component: Home,
     },
     {
       path: '/login',
       name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue'),
+      component: Login,
     },
     {
       path: '/rToken',
       name: 'rToken',
-      component: () => import(/* webpackChunkName: "rToken" */ './views/ProcessToken.vue'),
+      component: ProcessToken,
     },
   ],
 });
